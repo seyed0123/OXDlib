@@ -1,10 +1,12 @@
-public class Librarian {
+public class Librarian extends User{
     /*
     * The librarian should have a username and a password
     * The librarian should be able to search users, librarians and books
     * The librarian should be able to add\remove\update user add\remove\update_
     _ librarian and add\remove\update book
      */
-
+    public Librarian(String name, String password) {
+        super(name,password);
+    }
 
 }

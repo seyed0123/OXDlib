@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Objects;
 
@@ -10,7 +9,7 @@ public class User {
     //User should have a username and a password
     private String username;
     private String password;
-    private HashSet<String> books;
+    private HashSet<Integer> books;
     public User (String name ,String password)
     {
         this.username = name;
@@ -55,27 +54,27 @@ public class User {
     public boolean checkPassword(String password)
     {
         String genPass=HashPassword(password);
-        return Objects.equals(password, genPass);
+        return Objects.equals(this.password, genPass);
     }
-    public boolean rentBook(String bookName)
+    public boolean rentBook(int ISBN)
     {
-        if(books.contains(bookName))
+        if(books.contains(ISBN))
             return false;
-        books.add(bookName);
+        books.add(ISBN);
         return true;
     }
 
-    public boolean returnBook(String bookName){
-        if(!books.contains(bookName))
+    public boolean returnBook(int ISBN){
+        if(!books.contains(ISBN))
             return false;
-        books.remove(bookName);
+        books.remove(ISBN);
         return true;
     }
     public void getBooks()
     {
         String out=null;
         int j=0;
-        for(String i : books) {
+        for(int i : books) {
             out += j + " : " + i+"\n";
             j++;
         }

@@ -8,80 +8,69 @@ public class Library {
     -> (for example: harry potter -> 4 means there are currently 4 harry potter books)
     * The library should have a list of users and a list of librarians.
      */
-    private HashMap <String, Book> books;
-    private HashMap <String , User> users;
+    private final HashMap <Integer, Book> books;
+    private final HashMap <String , User> users;
+    private final HashMap <String , Librarian > librarians;
     public Library()
     {
         books = new HashMap<>();
         users = new HashMap<>();
+        librarians = new HashMap<>();
     }
     //book related functions
-    public void addBook(){
-       String name = JOptionPane.showInputDialog("Enter the book name");
-       String author =JOptionPane.showInputDialog("Enter the book author");
-       int year = Integer.parseInt(JOptionPane.showInputDialog("Enter the book year (Write numerically)"));
-       int num = Integer.parseInt(JOptionPane.showInputDialog("Enter the book initial value (Write numerically)"));
-       Book book = new Book(name , author , year ,num);
-       books.put(name , book);
+    public void addBook(String name, String author , int year , int num , int ISBN) {
+       Book book = new Book(name , author , year ,num , ISBN);
+       books.put(ISBN , book);
     }
 
-    public void removeBook(){
-        String name = JOptionPane.showInputDialog("Enter the book name");
-        if(doesBookExist(name))
-            books.remove(name);
+    public void removeBook(int ISBN){
+        if(doesBookExist(ISBN))
+            books.remove(ISBN);
         else
             JOptionPane.showMessageDialog(null,"this book doesn't exist.","ERROR",JOptionPane.ERROR_MESSAGE);
     }
 
-    public void searchBook(){
-        String name = JOptionPane.showInputDialog("Enter the book name");
+    public void searchBook(int ISBN){
         int num =0;
-        if(doesBookExist(name))
-            num = books.get(name).getNum();
-        JOptionPane.showMessageDialog(null,"here are "+ num + name+" book in the library");
+        if(doesBookExist(ISBN))
+            num = books.get(ISBN).getNum();
+        JOptionPane.showMessageDialog(null,"here are "+ num +"with this ISBN" +ISBN+" book in the library");
     }
 
-    public void updateBook(){
-        String name = JOptionPane.showInputDialog("Enter the book name");
-        int year = Integer.parseInt(JOptionPane.showInputDialog("Enter the book year (Write numerically)"));
-        if(doesBookExist(name))
-            books.get(name).updateBook(year);
+    public void updateBook(int ISBN , int year){
+        if(doesBookExist(ISBN))
+            books.get(ISBN).updateBook(year);
         else
             JOptionPane.showMessageDialog(null,"this book doesn't exist.","ERROR",JOptionPane.ERROR_MESSAGE);
     }
 
-    public boolean doesBookExist(String name){
-        return books.containsKey(name);
+    public boolean doesBookExist(int ISBN){
+        return books.containsKey(ISBN);
     }
 
-    public void increaseBook(){
-        String name = JOptionPane.showInputDialog("Enter the book name");
-        int num = Integer.parseInt(JOptionPane.showInputDialog("Enter the number of books added (Write numerically)"));
-        if(doesBookExist(name)) {
-            books.get(name).increaseBook(num);
-            JOptionPane.showMessageDialog(null, "done\nnow we have " + books.get(name).getNum() + name + "book in the library");
+    public void increaseBook(int ISBN , int num){
+        if(doesBookExist(ISBN)) {
+            books.get(ISBN).increaseBook(num);
+            JOptionPane.showMessageDialog(null, "done\nnow we have " + books.get(ISBN).getNum() + ISBN + "book in the library");
         }
         else
             JOptionPane.showMessageDialog(null,"this book doesn't exist.","ERROR",JOptionPane.ERROR_MESSAGE);
     }
 
-    public void decreaseBook(){
-        String name = JOptionPane.showInputDialog("Enter the book name");
-        int num = Integer.parseInt(JOptionPane.showInputDialog("Enter the number of books removed (Write numerically)"));
-        if(doesBookExist(name)) {
-            if(books.get(name).decreaseBook(num))
-                JOptionPane.showMessageDialog(null, "done\nnow we have " + books.get(name).getNum() + name + "book in the library");
+    public void decreaseBook(int ISBN , int num){
+
+        if(doesBookExist(ISBN)) {
+            if(books.get(ISBN).decreaseBook(num))
+                JOptionPane.showMessageDialog(null, "done\nnow we have " + books.get(ISBN).getNum() + ISBN + "book in the library");
             else
-                JOptionPane.showMessageDialog(null, "oops\nwe only have " + books.get(name).getNum() + name + "book in the library","ERROR",JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "oops\nwe only have " + books.get(ISBN).getNum() + ISBN + "book in the library","ERROR",JOptionPane.ERROR_MESSAGE);
         }
         else
             JOptionPane.showMessageDialog(null,"this book doesn't exist.","ERROR",JOptionPane.ERROR_MESSAGE);
     }
     //user related functions
 
-    public void addUser(){
-        String name = JOptionPane.showInputDialog("Enter the your username");
-        String password =JOptionPane.showInputDialog("Enter the your password");
+    public void addUser(String name , String password){
         if(doesUserExist(name)) {
             JOptionPane.showMessageDialog(null, "this username already in use.", "ERROR", JOptionPane.ERROR_MESSAGE);
             return;
@@ -90,30 +79,27 @@ public class Library {
         users.put(name , user);
     }
 
-    public void removeUser(){
-        String name = JOptionPane.showInputDialog("Enter the user name");
+    public void removeUser(String name){
         if(doesUserExist(name))
             users.remove(name);
         else
             JOptionPane.showMessageDialog(null,"this user doesn't exist.","ERROR",JOptionPane.ERROR_MESSAGE);
     }
 
-    public void searchUser(){
-        String name = JOptionPane.showInputDialog("Enter the user name");
+    public void searchUser(String name){
+
         if(doesUserExist(name))
             users.get(name).getBooks();
-
         else
             JOptionPane.showMessageDialog(null,"this user doesn't exist.","ERROR",JOptionPane.ERROR_MESSAGE);
     }
 
-    public void updateUser(){
-        String name = JOptionPane.showInputDialog("Enter the user name");
-        String oldPassword = JOptionPane.showInputDialog("Enter the old password");
-        String password = JOptionPane.showInputDialog("Enter the new password");
+    public void updateUser(String name , String oldPassword , String password){
         if(doesUserExist(name)) {
-            users.get(name).setPassword(password , oldPassword);
-            JOptionPane.showMessageDialog(null, "done\nyour password changed.");
+            if(users.get(name).setPassword(password , oldPassword))
+                JOptionPane.showMessageDialog(null, "done\nyour password changed.");
+            else
+                JOptionPane.showMessageDialog(null,"old password is wrong.","ERROR",JOptionPane.ERROR_MESSAGE);
         }
         else
             JOptionPane.showMessageDialog(null,"this user doesn't exist.","ERROR",JOptionPane.ERROR_MESSAGE);
@@ -125,42 +111,81 @@ public class Library {
 
     //librarian related functions
 
-    public void addLibrarian(){
-        String name = JOptionPane.showInputDialog("Enter the your username");
-        String password =JOptionPane.showInputDialog("Enter the your password");
-        if(doesUserExist(name)) {
+    public void addLibrarian(String name , String password){
+        if(doesLibrarianExist(name)) {
             JOptionPane.showMessageDialog(null, "this username already in use.", "ERROR", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        Librarian user = new Librarian (name, password);
-        users.put(name , user);
+        Librarian librarian = new Librarian (name, password);
+        librarians.put(name , librarian);
     }
 
-    public void removeLibrarian(){
-        String name = JOptionPane.showInputDialog("Enter the user name");
-        if(doesUserExist(name))
-            users.remove(name);
+    public void removeLibrarian(String name){
+        if(doesLibrarianExist(name))
+            librarians.remove(name);
         else
             JOptionPane.showMessageDialog(null,"this user doesn't exist.","ERROR",JOptionPane.ERROR_MESSAGE);
     }
 
-    public void searchLibrarian(){
-        String name = JOptionPane.showInputDialog("Enter the user name");
-        if(doesUserExist(name))
-            users.get(name).getBooks();
+    public void searchLibrarian(String name){
+
+        if(doesLibrarianExist(name))
+            JOptionPane.showMessageDialog(null,"this librarian exist.");
         else
-            JOptionPane.showMessageDialog(null,"this user doesn't exist.","ERROR",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,"this librarian doesn't exist.","ERROR",JOptionPane.ERROR_MESSAGE);
     }
 
-    public void updateLibrarian(){
-        String name = JOptionPane.showInputDialog("Enter the user name");
-        String oldPassword = JOptionPane.showInputDialog("Enter the old password");
-        String password = JOptionPane.showInputDialog("Enter the new password");
-        if(doesUserExist(name)) {
-            users.get(name).setPassword(password , oldPassword);
-            JOptionPane.showMessageDialog(null, "done\nyour password changed.");
+    public void updateLibrarian(String name ,String oldPassword , String password){
+
+        if(doesLibrarianExist(name)) {
+            if(librarians.get(name).setPassword(password , oldPassword))
+                JOptionPane.showMessageDialog(null, "done\nyour password changed.");
+            else
+                JOptionPane.showMessageDialog(null,"old password is wrong.","ERROR",JOptionPane.ERROR_MESSAGE);
         }
         else
             JOptionPane.showMessageDialog(null,"this user doesn't exist.","ERROR",JOptionPane.ERROR_MESSAGE);
+    }
+    public boolean doesLibrarianExist(String name){
+        return librarians.containsKey(name);
+    }
+    public int login (String username , String password)
+    {
+        if(doesUserExist(username))
+            if (users.get(username).checkPassword(password))
+                return 2;
+            else
+                return 1;
+        else if(doesLibrarianExist(username))
+            if(librarians.get(username).checkPassword(password))
+                return -2;
+            else
+                return -1;
+        else
+            return 0;
+    }
+    public void rentBook(String username , int ISBN)
+    {
+        if(!doesBookExist(ISBN))
+        {
+            JOptionPane.showMessageDialog(null,"this book doesn't exist.","ERROR",JOptionPane.ERROR_MESSAGE);
+        }if(books.get(ISBN).getNum()<=0)
+        {
+            JOptionPane.showMessageDialog(null,"There are not enough of these books available.","ERROR",JOptionPane.ERROR_MESSAGE);
+        }if(!users.get(username).rentBook(ISBN))
+        {
+            JOptionPane.showMessageDialog(null,"you already have this book.","ERROR",JOptionPane.ERROR_MESSAGE);
+        }
+        decreaseBook(ISBN,1);
+        JOptionPane.showMessageDialog(null,"done!");
+    }
+    public void returnBook(String username , int ISBN)
+    {
+        if(users.get(username).returnBook(ISBN)) {
+            JOptionPane.showMessageDialog(null, "done!");
+            increaseBook(ISBN,1);
+        }
+        else
+            JOptionPane.showMessageDialog(null,"you haven't ever rented this book","ERROR",JOptionPane.ERROR_MESSAGE);
     }
 }

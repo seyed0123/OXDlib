@@ -2,9 +2,11 @@ public class Book {
     private String name;
     private String author;
     private int yearOfPublish;
+    private int ISBN;
     private int num;
-    public Book(String name , String author , int yearOfPublish , int num)
+    public Book(String name , String author , int yearOfPublish , int num ,int ISBN)
     {
+        this.ISBN=ISBN;
         this.name=name;
         this.author=author;
         this.yearOfPublish=yearOfPublish;
@@ -29,5 +31,4 @@ public class Book {
     {
         return this.num;
     }
-    //Book should contain name,author,year of publish and ISBN
 }

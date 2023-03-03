@@ -1,8 +1,10 @@
+import javax.swing.*;
+
 public class Book {
-    private String name;
-    private String author;
+    private final String name;
+    private final String author;
     private int yearOfPublish;
-    private int ISBN;
+    private final int ISBN;
     private int num;
     public Book(String name , String author , int yearOfPublish , int num ,int ISBN)
     {
@@ -30,5 +32,10 @@ public class Book {
     public int getNum()
     {
         return this.num;
+    }
+    public void printStatus()
+    {
+        String out = "name :" +this. name +"\nauthor : "+this.author+"\nyear of publish :"+this.yearOfPublish+"\nISBN : "+this.ISBN+"\nnumber :"+this.num;
+        JOptionPane.showMessageDialog(null,out);
     }
 }

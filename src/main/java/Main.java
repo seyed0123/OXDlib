@@ -1,8 +1,5 @@
 import javax.swing.*;
 import java.util.Objects;
-import java.util.Scanner;
-import java.util.Stack;
-
 public class Main {
     /*
     * make a functional library app using oop
@@ -18,11 +15,11 @@ public class Main {
     }
     public static void login()
     {
-        int res = 0;
+        int res;
         String name;
         while (true) {
             name = JOptionPane.showInputDialog("Enter the your username");
-            String password = JOptionPane.showInputDialog("Enter the new password");
+            String password = JOptionPane.showInputDialog("Enter the password");
             if((name==null || password==null))
                 System.exit(0);
             res = lib.login(name, password);
@@ -40,14 +37,16 @@ public class Main {
             while (true)
                 if (librarianMenu())
                     break;
+
+        login();
     }
-    static String userinput()
+    static String userInput()
     {
         return JOptionPane.showInputDialog("1-change password\n2-rent book\n3-return book\n4-borrow book list\n5-log out");
     }
     static boolean userMenu(String username)
     {
-        String command = userinput();
+        String command = userInput();
         if(Objects.equals(command, "1"))
         {
             String oldPassword = JOptionPane.showInputDialog("Enter the old password");
@@ -64,7 +63,7 @@ public class Main {
         }else if (Objects.equals(command, "4"))
         {
             lib.searchUser(username);
-        }else if (Objects.equals(command, "5"))
+        }else if (Objects.equals(command, "5") ||command == null)
         {
             return true;
         }else
@@ -75,7 +74,7 @@ public class Main {
     }
     static String librarianInput()
     {
-        return JOptionPane.showInputDialog("1-add book\n2-remove book\n3-search Book\n4-update Book\n6-increase Book\n7-decrease Book\n8-addUser\n9-removeUser\n10-searchUser\n11-updateUser\n12-addLibrarian\n13-removeLibrarian\n14-searchLibrarian\n15-updateLibrarian\n16-logout");
+        return JOptionPane.showInputDialog("1-add book\n2-remove book\n3-search Book\n4-update Book\n5-increase Book\n6-decrease Book\n7-addUser\n8-removeUser\n9-searchUser\n10-updateUser\n11-addLibrarian\n12-removeLibrarian\n13-searchLibrarian\n14-updateLibrarian\n15-logout");
     }
     static boolean librarianMenu()
     {
@@ -146,10 +145,8 @@ public class Main {
         }else if (Objects.equals(commend, "14"))
         {
             String name = JOptionPane.showInputDialog("Enter the user name");
-            String oldPassword = JOptionPane.showInputDialog("Enter the old password");
-            String password = JOptionPane.showInputDialog("Enter the new password");
-            lib.updateLibrarian(name , oldPassword, password);
-        }else if (commend=="16")
+            lib.updateLibrarian(name);
+        }else if (Objects.equals(commend, "15") || commend==null)
         {
             return true;
         }else

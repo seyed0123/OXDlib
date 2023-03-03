@@ -7,9 +7,9 @@ import java.util.Objects;
 public class User {
     //User should have a list of books
     //User should have a username and a password
-    private String username;
+    private final String username;
     private String password;
-    private HashSet<Integer> books;
+    private final HashSet<Integer> books;
     public User (String name ,String password)
     {
         this.username = name;
@@ -41,12 +41,12 @@ public class User {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        System.out.println(generatedPassword);
+        //System.out.println(generatedPassword);
         return generatedPassword;
     }
     public boolean setPassword(String password , String oldPassword)
     {
-        if(Objects.equals(HashPassword(oldPassword),this.password))
+        if(!Objects.equals(HashPassword(oldPassword),this.password))
             return false;
         this.password=HashPassword(password);
         return true;
@@ -72,15 +72,15 @@ public class User {
     }
     public void getBooks()
     {
-        String out=null;
-        int j=0;
+        StringBuilder out= new StringBuilder();
+        int j=1;
         for(int i : books) {
-            out += j + " : " + i+"\n";
+            out.append(j).append(" : ").append(i).append("\n");
             j++;
         }
         if(out!=null)
-            JOptionPane.showMessageDialog(null,"list of"+this.username+"'s books\n"+out);
+            JOptionPane.showMessageDialog(null,"list of "+this.username+"'s books\n"+out);
         else
-            JOptionPane.showMessageDialog(null, this.username+"doesn't have any book");
+            JOptionPane.showMessageDialog(null, this.username+" doesn't have any book");
     }
 }

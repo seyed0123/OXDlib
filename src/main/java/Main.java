@@ -7,12 +7,34 @@ public class Main {
     * don't forget to add at least 1 librarian to the library to make it functionable.
     * *  *** don't limit yourself to our template ***
      */
-    static Library lib = new Library();
     public static void main(String[] args)
     {
-        lib.addLibrarian("arshia","mamamia");
+        lib.addLibrarian("temp","changeMe");
         login();
     }
+    static Library lib = new Library();
+    static public String getNumberString(String dialog)
+    {
+        String input;
+        while(true)
+        {
+            input =JOptionPane.showInputDialog(dialog);
+            String num ="1234567890";
+            boolean flag=true;
+            for(int i = 0 ; i < input.length() ; i++)
+            {
+                if (!num.contains("" + input.charAt(i))) {
+                    flag = false;
+                    break;
+                }
+            }if(flag)
+                break;
+            else
+                JOptionPane.showMessageDialog(null, "Was machst du bro?.");
+        }
+        return input;
+    }
+
     public static void login()
     {
         int res;
@@ -54,11 +76,11 @@ public class Main {
             lib.updateUser(username, oldPassword , password);
         }else if (Objects.equals(command, "2"))
         {
-            int ISBN = Integer.parseInt(JOptionPane.showInputDialog("Enter the book ISBN book code (Write numerically)"));
+            int ISBN = Integer.parseInt(getNumberString("Enter the book ISBN book code (Write numerically)"));
             lib.rentBook(username,ISBN);
         }else if (Objects.equals(command, "3"))
         {
-            int ISBN = Integer.parseInt(JOptionPane.showInputDialog("Enter the book ISBN book code (Write numerically)"));
+            int ISBN = Integer.parseInt(getNumberString("Enter the book ISBN book code (Write numerically)"));
             lib.returnBook(username , ISBN);
         }else if (Objects.equals(command, "4"))
         {
@@ -82,33 +104,34 @@ public class Main {
         if(Objects.equals(commend, "1"))
         {
             String name = JOptionPane.showInputDialog("Enter the book name");
-            String author =JOptionPane.showInputDialog("Enter the book author");
-            int year = Integer.parseInt(JOptionPane.showInputDialog("Enter the book year (Write numerically)"));
-            int num = Integer.parseInt(JOptionPane.showInputDialog("Enter the book initial value (Write numerically)"));
-            int ISBN = Integer.parseInt(JOptionPane.showInputDialog("Enter the book ISBN book code (Write numerically)"));
+            String author = JOptionPane.showInputDialog("Enter the book author");
+            int year = Integer.parseInt(getNumberString("Enter the book year (Write numerically)"));
+            int num = Integer.parseInt(getNumberString("Enter the book initial value (Write numerically)"));
+            int ISBN = Integer.parseInt(getNumberString("Enter the book ISBN book code (Write numerically)"));
             lib.addBook(name,author ,year , num ,ISBN);
         }else if(Objects.equals(commend, "2"))
         {
-            int ISBN = Integer.parseInt(JOptionPane.showInputDialog("Enter the book ISBN book code (Write numerically)"));
+            int ISBN = Integer.parseInt(getNumberString("Enter the book ISBN book code (Write numerically)"));
             lib.removeBook(ISBN);
         }else if (Objects.equals(commend, "3"))
         {
-            int ISBN = Integer.parseInt(JOptionPane.showInputDialog("Enter the book ISBN book code (Write numerically)"));
+            int ISBN = Integer.parseInt(getNumberString("Enter the book ISBN book code (Write numerically)"));
             lib.searchBook(ISBN);
         }else if (Objects.equals(commend, "4"))
         {
-            int ISBN = Integer.parseInt(JOptionPane.showInputDialog("Enter the book ISBN book code (Write numerically)"));
-            int year = Integer.parseInt(JOptionPane.showInputDialog("Enter the book year (Write numerically)"));
+            String input;
+            int ISBN = Integer.parseInt(getNumberString("Enter the book ISBN book code (Write numerically)"));
+            int year = Integer.parseInt("Enter the book year (Write numerically)");
             lib.updateBook(ISBN,year);
         }else if(Objects.equals(commend, "5"))
         {
-            int ISBN = Integer.parseInt(JOptionPane.showInputDialog("Enter the book ISBN book code (Write numerically)"));
-            int num = Integer.parseInt(JOptionPane.showInputDialog("Enter the number of books added (Write numerically)"));
+            int ISBN = Integer.parseInt(getNumberString("Enter the book ISBN book code (Write numerically)"));
+            int num = Integer.parseInt(getNumberString("Enter the number of books added (Write numerically)"));
             lib.increaseBook(ISBN, num);
         }else if(Objects.equals(commend, "6"))
         {
-            int ISBN = Integer.parseInt(JOptionPane.showInputDialog("Enter the book ISBN book code (Write numerically)"));
-            int num = Integer.parseInt(JOptionPane.showInputDialog("Enter the number of books removed (Write numerically)"));
+            int ISBN = Integer.parseInt(getNumberString("Enter the book ISBN book code (Write numerically)"));
+            int num = Integer.parseInt(getNumberString("Enter the number of books removed (Write numerically)"));
             lib.decreaseBook(ISBN,num);
         }else if (Objects.equals(commend, "7"))
         {

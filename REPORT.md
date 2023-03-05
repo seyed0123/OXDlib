@@ -95,7 +95,8 @@ and handles the value of this return in the main class and then login to user or
 - **special case**: when a user inputs a non-numeric string when the program wants a numeric string it crashed because of the `Integer.parseInt()` function so it needed to use this way 
     > ``` try{} catch{} ```
    
-    to detect crashes and handle them.
+to detect crashes and handle them.
+to solve this problem uses this function `getNumberString()` , This function ensures that the inputs consist of only numbers
 # Conclusion:
 
 with the help of this program, we can meet the needs of a library to manage.

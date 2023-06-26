@@ -34,7 +34,6 @@ public class Main {
         }
         return input;
     }
-
     public static void login()
     {
         int res;

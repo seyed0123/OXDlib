@@ -11,7 +11,7 @@ but don't have a database or work via files.
 
 # Design and Implementation
 
-### design these four principle objects 
+### design four principle objects 
 - User
 - Library
 - Book

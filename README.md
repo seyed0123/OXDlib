@@ -99,5 +99,6 @@ to detect crashes and handle them.
 to solve this problem uses this function `getNumberString()` , This function ensures that the inputs consist of only numbers
 # Conclusion:
 
+
 with the help of this program, we can meet the needs of a library to manage.
 but this program needs a more beautiful user interface and a strong database or a appropriate server to have a connection between libraries to can be used in practical conditions.
